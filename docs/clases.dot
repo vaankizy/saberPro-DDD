@@ -1,0 +1,21 @@
+digraph G { rankdir=TB; dpi=200; bgcolor=white; pad=0.2; nodesep=0.3; ranksep=0.55;
+ node [shape=record, fontname="Liberation Sans", fontsize=11, style=filled, fillcolor=white];
+ edge [fontname="Liberation Sans", fontsize=10];
+ Repo [fillcolor="#F2F2F2", label="{«interface»\nPreguntaRepository|+ guardar(Pregunta)\l+ buscarPorId(Long)\l+ buscarPorEstado(EstadoPregunta)\l+ eliminar(Long)\l}"];
+ Pregunta [fillcolor="#FFF2CC", label="{«Aggregate Root»\nPregunta|- id : Long\l- estado : EstadoPregunta\l|+ definirEnunciado(texto)\l+ definirJustificacion(texto)\l+ agregarOpcion(texto, esCorrecta)\l+ enviarARevision()\l+ iniciarRevision()\l+ aprobar() / rechazar()\l+ devolverABorrador()\l- validarInvariantesParaEnvio()\l}"];
+ Enunciado [fillcolor="#DCE9F7", label="{«Value Object»\nEnunciado|- texto : String\l}"];
+ Justificacion [fillcolor="#DCE9F7", label="{«Value Object»\nJustificacion|- texto : String\l}"];
+ Opcion [fillcolor="#DCE9F7", label="{«Value Object»\nOpcionRespuesta|- texto : String\l- esCorrecta : boolean\l}"];
+ Estado [fillcolor="#E4F2DD", label="{«enumeration»\nEstadoPregunta|BORRADOR\lPENDIENTE_REVISION\lEN_REVISION\lAPROBADA\lRECHAZADA\l}"];
+ Regla [fillcolor="#F8DDE0", label="{ReglaNegocioException}"];
+ DomEx [fillcolor="#F8DDE0", label="{DomainException}"];
+ Repo -> Pregunta [arrowhead=vee, style=dashed, label=" gestiona"];
+ {rank=same; Enunciado; Justificacion; Opcion}
+ Pregunta -> Enunciado [arrowtail=diamond, arrowhead=none, dir=back, label="0..1"];
+ Pregunta -> Justificacion [arrowtail=diamond, arrowhead=none, dir=back, label="0..1"];
+ Pregunta -> Opcion [arrowtail=diamond, arrowhead=none, dir=back, label="0..4"];
+ Opcion -> Estado [style=invis];
+ Pregunta -> Estado [arrowhead=vee, label=" estado", constraint=false];
+ Pregunta -> Regla [arrowhead=vee, style=dashed, label=" lanza", constraint=false];
+ Regla -> DomEx [arrowhead=empty];
+}

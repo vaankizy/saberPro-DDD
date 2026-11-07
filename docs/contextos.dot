@@ -1,0 +1,14 @@
+digraph G { rankdir=TB; dpi=200; bgcolor=white; pad=0.2; nodesep=0.9; ranksep=0.8;
+ node [shape=box, style="rounded,filled", fontname="Liberation Sans", fontsize=12, margin="0.18,0.12"];
+ edge [fontname="Liberation Sans", fontsize=10];
+ A [label="Contexto de Autoría\n\nPregunta · Enunciado · Clave\nJustificacion · Autor", fillcolor="#DCE9F7"];
+ V [label="Contexto de Validación\n\nReglaEstructural · FiltroExpresion\nValidezOpciones", fillcolor="#E4F2DD"];
+ C [label="Contexto de Ciclo de Vida\n\nEstadoPregunta · Transicion\nBorrador · EnRevision", fillcolor="#FFF2CC"];
+ R [label="Contexto de Revisión Pares\n\nRevisor · Asignacion\nEvaluacion · Dictamen", fillcolor="#F8DDE0"];
+ {rank=same; A; V}
+ {rank=same; C; R}
+ A -> V [label="solicita validar\n(Cliente/Proveedor)"];
+ A -> C [label="envía a revisión\n(Conformista)"];
+ C -> R [label="PENDIENTE_REVISION", ];
+ R -> C [label="dictamen", constraint=false];
+}

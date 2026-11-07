@@ -1,0 +1,14 @@
+digraph G { rankdir=TB; dpi=200; bgcolor=white; pad=0.2; nodesep=0.6; ranksep=0.5;
+ node [shape=box, style="rounded,filled", fillcolor="#DCE9F7", fontname="Liberation Sans", fontsize=12, margin="0.2,0.1"];
+ edge [fontname="Liberation Sans", fontsize=10];
+ start [shape=circle, label="", width=0.2, style=filled, fillcolor=black];
+ end [shape=doublecircle, label="", width=0.2, style=filled, fillcolor=black];
+ BORRADOR; PENDIENTE_REVISION; EN_REVISION; APROBADA [fillcolor="#E4F2DD"]; RECHAZADA [fillcolor="#F8DDE0"];
+ start -> BORRADOR [label=" new Pregunta()"];
+ BORRADOR -> PENDIENTE_REVISION [label=" enviarARevision()  [4 opciones, 1 clave, enunciado, justificación]"];
+ PENDIENTE_REVISION -> EN_REVISION [label=" iniciarRevision()"];
+ EN_REVISION -> APROBADA [label=" aprobar()"];
+ EN_REVISION -> RECHAZADA [label=" rechazar()"];
+ RECHAZADA -> BORRADOR [label="devolverABorrador() ", constraint=false];
+ APROBADA -> end;
+}
